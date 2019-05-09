@@ -3,14 +3,14 @@ const Traveller = function(journeys) {
 };
 
 Traveller.prototype.getJourneyStartLocations = function(startLocation) {
-   return this.journeys.find((start) => {
-    return start.location === startLocation; 
+   return this.journeys.map((start) => {
+    return start.startLocation; 
   });
 };
 
 Traveller.prototype.getJourneyEndLocations = function (location) {
-  return this.journeys.find((end) => {
-    return end.location === location;
+  return this.journeys.map((end) => {
+    return end.endLocation;
   });
 };
 
@@ -32,11 +32,19 @@ Traveller.prototype.calculateTotalDistanceTravelled = function () {
   }, 0);
 };
 
-Traveller.prototype.getUniqueModesOfTransport = function (transport, mode) {
-  return this.journeys.filter((banana) => {
-    return banana[transport] === mode;
+Traveller.prototype.getUniqueModesOfTransport = function () {
+  return this.journeys.filter(function(banana) {
+    return seen.getUniqueModesOfTransport(transport) ? false: (seen[transport] = true);
   });
 };
 
 
 module.exports = Traveller;
+
+
+// function uniq(a) {
+//   var seen = {};
+//   return a.filter(function(item) {
+//       return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+//   });
+// }
